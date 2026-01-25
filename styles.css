@@ -5,7 +5,7 @@
     }
 
 body {
-    font-family: monospace;
+    font-family: Georgia, 'Times New Roman', Times, serif;
     min-height: 100vh;
     padding: 20px;
     padding-top: 110px;
@@ -87,7 +87,7 @@ body {
 
 .form-section h2 {
     color: #333;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     font-size: 1.5em;
 }
 
@@ -107,7 +107,7 @@ body {
     color: #555;
     font-weight: 600;
     margin-bottom: 8px;
-    font-size: 0.9em;
+    font-size: 0.8em;
 }
 
 .form-group input,
@@ -172,11 +172,13 @@ body {
 
 .entry:hover {
     background: #f3f1ef;
-    transform: translateX(5px);
+    transform: translateY(-5px);
 }
 
 .entry-info h3 {
     color: #333;
+    font-size:0.9em;
+    margin-top: 2px;
 }
 
 .entry-info p {
@@ -198,21 +200,6 @@ body {
     font-size: 0.7em;
     color: #666;
     text-transform: capitalize;
-}
-
-.delete-btn {
-    background: #560101;
-    color: #ffffff;
-    border: none;
-    padding: 8px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-left: 15px;
-    transition: background 0.3s ease;
-}
-
-.delete-btn:hover {
-    background: #dc2626;
 }
 
 .empty-state {
@@ -290,14 +277,36 @@ body {
     color: #667eea;
 }
 
+/* Update .timeline-chart */
 .timeline-chart {
-    gap: 8px;
-    height: 160px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    height: 180px;          /* Increased slightly for labels */
     padding: 10px;
-    padding-left: 40px;
-    padding-bottom:35px;
-    position:relative;
-    flex:1;
+    padding-bottom: 25px;   /* Creates empty space at the bottom for labels */
+    position: relative;
+    width: 100%;
+}
+
+.timeline-chart::after {
+    content: '';
+    position: absolute;
+    bottom: 25px; 
+    left: 0;
+    width: 100%;
+    border-bottom: 2px solid #ccc;
+    z-index: 0;
+}
+
+.bar-label {
+    position: absolute;
+    bottom: -20px;          
+    width: 100%;
+    text-align: center;
+    font-size: 11px;
+    color: #333;
+    font-family: monospace;
 }
 .chart {
     display:flex;
@@ -313,45 +322,26 @@ body {
 }
 
 .chart-bar {
-    flex: 1;
+    flex: none;
     border-radius: 5px 5px 0 0;
     position: relative;
     transition: all 0.3s ease;
     cursor: pointer;
+    width:100%;
 }
 
 .chart-bar:hover {
     opacity: 0.8;
 }
 
-.bar-label {
-    position: absolute;
-    bottom: -25px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 10px;
-    color: #666;
-    white-space: nowrap;
-    font-weight: 600;
-}
-.y-axis {
-    position: absolute;
-    left: 5px;
-    top: 10px;
-    bottom: 35px;
-    height: 100%;
-    width: 35px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+.bar-top-label {
+    font-size: 9px;
+    color: #555;
+    margin-bottom: 2px;
+    font-weight: bold;
+    text-align: center;
 }
 
-.y-axis-label {
-    font-size: 10px;
-    color: #666;
-    text-align: right;
-    padding-right: 8px;
-}
 .bar-value {
     display:none;
 }
