@@ -54,10 +54,7 @@ body {
     box-shadow: 0 5px 15px rgba(0,0,0,0.2);
     transition: transform 0.3s ease;
     }
-.chart{
-    display:flex;
-    justify-content: space-around;
-}
+
 .card:hover {
     transform: translateY(-5px);
     }
@@ -228,6 +225,12 @@ body {
     .header h1 {
         font-size: 1.8em;
     }
+    .chart {
+        flex-direction: column; 
+    }
+    .chart .card {
+        width: 100%; 
+    }
     .entry {
         padding: 10px; /* Less padding gives the text more room */
     }
@@ -304,8 +307,8 @@ body {
 }
 
 .chart .card {
-    flex: 1;  
-    width: 50%; 
+    flex: 1 1 0%;
+    min-width: 0;
 }
 
 .chart-bar {

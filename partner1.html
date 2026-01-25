@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Budget Tracker</title>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <p>Track your finances together</p>
+            <h2>Partner 1's Budget</h2>
+        </div>
+
+        <!-- Summary Cards -->
+        <div class="summary-cards">
+            <div class="chart">
+                <div class="card">
+                    <div class="card-label">Net Income</div>
+                    <div class="card-value" id="netIncome">$0.00</div>
+                </div>
+                <div class="card">
+                    <div class="card-label">Total Income</div>
+                    <div class="timeline-chart" id="incomeChart"></div>
+                </div>
+                <div class="card">
+                    <div class="card-label">Total Expenses</div>
+                    <div class="timeline-chart" id="expenseChart"></div>
+                </div>
+            </div> 
+        </div>
+
+        <!-- Add Entry Form -->
+        <div class="form-section">
+            <h2>+ Add New Entry</h2>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="owner">Who</label>
+                    <select id="owner">
+                        <option value="partner1">Partner 1</option>
+                        <option value="partner2">Partner 2</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <input type="text" id="description" placeholder="e.g., Groceries">
+                </div>
+                <div class="form-group">
+                    <label for="amount">Amount</label>
+                    <input type="number" id="amount" step="0.01" placeholder="0.00">
+                </div>
+                <div class="form-group">
+                    <label for="type">Type</label>
+                    <select id="type">
+                        <option value="expense">Expense</option>
+                        <option value="income">Income</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="date">Date</label>
+                    <input type="date" id="date">
+                </div>
+            </div>
+            <button class="btn" onclick="addEntry()">Add Entry</button>
+        </div>
+
+        <!-- Entries List -->
+        <div class="entries-section">
+            <h2>📊 Recent Entries</h2>
+            <div id="entriesList">
+                <div class="empty-state">
+                    <p>No entries yet. Add your first transaction above!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <div class="footer-container">
+            <button onclick="openSettings()" class="nav-btn">
+                <img width="25" src="https://img.icons8.com/ios/50/settings-3--v1.png" alt="settings-3--v1"/>
+            </button>
+            <a href="partner1.html" class="nav-btn">
+                <img width="25" src="https://img.icons8.com/ios/50/user-female--v1.png" alt="user-female--v1"/>
+            </a>
+            <a href="index.html" class="nav-btn">
+                <img width="25" src="https://img.icons8.com/ios/50/novel--v1.png" alt="novel--v1"/>
+            </a>
+            <a href="partner2.html" class="nav-btn">
+                <img width="25" src="https://img.icons8.com/ios/50/brown-long-curly-hair-lady.png" alt="brown-long-curly-hair-lady"/>
+            </a>
+            <button onclick="scrollToTop()" class="nav-btn">
+                <img width="25" src="https://img.icons8.com/ios/50/circled-chevron-up.png" alt="circled-chevron-up"/>
+            </button>
+        </div>
+    </div>
+
+    <script src="script.js" defer></script>
+</body>
+</html>

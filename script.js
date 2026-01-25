@@ -1,4 +1,4 @@
-let entries = [
+let entries = JSON.parse(localStorage.getItem('budgetEntries')) || [
     { id: 1, description: 'Salary', amount: 3000, type: 'income', date: '2026-01-01', owner: 'partner2'},
     { id: 2, description: 'Groceries', amount: 150, type: 'expense', date: '2026-01-02', owner: 'partner2'},
     { id: 3, description: 'Gas', amount: 45, type: 'expense', date: '2026-01-03', owner: 'partner1' }
@@ -29,7 +29,7 @@ function addEntry() {
     };
 
     entries.unshift(newEntry);
-    
+    localStorage.setItem('budgetEntries', JSON.stringify(entries));
     // Clear form
     document.getElementById('description').value = '';
     document.getElementById('amount').value = '';
@@ -46,6 +46,7 @@ function addEntry() {
 // Delete entry
 function deleteEntry(id) {
     entries = entries.filter(e => e.id !== id);
+    localStorage.setItem('budgetEntries', JSON.stringify(entries));
     renderExpenseChart();
     renderIncomeChart();
     renderEntries();
