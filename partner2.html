@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <title>Budget Tracker</title>
+    <title>ForTwo</title>
 </head>
 <body>
     <div class="container">
@@ -17,11 +17,12 @@
 
         <!-- Summary Cards -->
         <div class="summary-cards">
-            <div class="chart">
-                <div class="card">
+            <div class="card">
                     <div class="card-label">Net Income</div>
                     <div class="card-value" id="netIncome">$0.00</div>
                 </div>
+            <div class="chart">
+                
                 <div class="card">
                     <div class="card-label">Total Income</div>
                     <div class="timeline-chart" id="incomeChart"></div>
@@ -37,13 +38,6 @@
         <div class="form-section">
             <h2>+ Add New Entry</h2>
             <div class="form-grid">
-                <div class="form-group">
-                    <label for="owner">Who</label>
-                    <select id="owner">
-                        <option value="partner1">Partner 1</option>
-                        <option value="partner2">Partner 2</option>
-                    </select>
-                </div>
                 <div class="form-group">
                     <label for="description">Description</label>
                     <input type="text" id="description" placeholder="e.g., Groceries">
@@ -64,7 +58,7 @@
                     <input type="date" id="date">
                 </div>
             </div>
-            <button class="btn" onclick="addEntry()">Add Entry</button>
+            <button class="btn" onclick="addEntry('partner2')">Add Entry</button>
         </div>
 
         <!-- Entries List -->

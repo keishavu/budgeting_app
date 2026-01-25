@@ -25,7 +25,7 @@ function addEntry() {
         amount,
         type,
         date,
-        owner
+        owner : ownerName
     };
 
     entries.unshift(newEntry);
@@ -35,7 +35,6 @@ function addEntry() {
     document.getElementById('amount').value = '';
     document.getElementById('type').value = 'expense';
     document.getElementById('date').valueAsDate = new Date();
-    document.getElementById('owner').value = 'partner1';
 
     renderEntries();
     renderIncomeChart();
@@ -52,18 +51,31 @@ function deleteEntry(id) {
     renderEntries();
     updateSummary();
 }
-
+// Helper: Get entries based on which page is open
+function getCurrentPageEntries() {
+    // Check the URL to see which page we are on
+    if (window.location.href.includes('partner1.html')) {
+        return entries.filter(e => e.owner === 'partner1');
+    } 
+    else if (window.location.href.includes('partner2.html')) {
+        return entries.filter(e => e.owner === 'partner2');
+    }
+    // Default: If on index.html (combined), return everything
+    return entries;
+}
 // Render entries list
 function renderEntries() {
     const list = document.getElementById('entriesList');
+    const current
     
-    if (entries.length === 0) {
-        list.innerHTML = '<div class="empty-state"><p>No entries yet. Add your first transaction above!</p></div>';
+    if (currentEntries.length === 0) {
+        list.innerHTML = '<div class="empty-state"><p>No entries yet. Add your first transaction.</p></div>';
         return;
     }
 
     list.innerHTML = entries.map(entry => {
-        const dateObj = new Date(entry.date + 'T00:00');
+        const[year,month,day] = entry.date.split('-');
+        const dateObj = new Date(year,month-1,day);
         const formattedDate = dateObj.toLocaleDateString('en-US', { 
             month: 'long', 
             day: 'numeric', 
@@ -89,25 +101,25 @@ function renderEntries() {
 // Render income chart
 function renderIncomeChart() {
     const chart = document.getElementById('incomeChart');
+    if (!chart) return;
     chart.innerHTML = '';
     
     const incomeEntries = entries.filter(e => e.type === 'income');
     
     // Group by day (shows full month)
     const dailyData = groupByDay(incomeEntries);
-    
     renderDailyBars(chart, dailyData, 'income');
 }
 //render expense chart 
 function renderExpenseChart() {
     const chart = document.getElementById('expenseChart');
+    if (!chart) return;
     chart.innerHTML = '';
     
     const expenseEntries = entries.filter(e => e.type === 'expense');
     
     // Group by day (shows full month)
     const dailyData = groupByDay(expenseEntries);
-    
     renderDailyBars(chart, dailyData, 'expense');
 }
 // Get week number from date
@@ -232,6 +244,7 @@ function renderDailyBars(chartElement, dailyDataData, chartType) {
 }
 // Update summary cards
 function updateSummary() {
+    const
     const totalIncome = entries
         .filter(e => e.type === 'income')
         .reduce((sum, e) => sum + e.amount, 0);
@@ -242,13 +255,17 @@ function updateSummary() {
     
     const netIncome = totalIncome - totalExpenses;
 
-    document.getElementById('totalIncome').textContent = `$${totalIncome.toFixed(2)}`;
-    document.getElementById('totalExpenses').textContent = `$${totalExpenses.toFixed(2)}`;
-    document.getElementById('netIncome').textContent = `$${netIncome.toFixed(2)}`;
-    
-    // Change balance color based on positive/negative
+    if(document.getElementById('totalIncome')) {
+        document.getElementById('totalIncome').textContent = `$${totalIncome.toFixed(2)}`;
+    }
+    if (document.getElementById('totalExpenses')) {
+        document.getElementById('totalExpenses').textContent = `$${totalExpenses.toFixed(2)}`;
+    }   
     const netIncomeEl = document.getElementById('netIncome');
-    netIncomeEl.className = 'card-value ' + (netIncome >= 0 ? 'income' : 'expense');
+    if(netIncomeEl) {
+        netIncmeEl.textContent = `$${netIncome.toFixed(2)}`;
+        netIncomeEl.className = 'card-value ' + (netIncome >= 0 ? 'income' : 'expense');
+    }
 }
 
 // Initialize on page load
