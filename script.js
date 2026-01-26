@@ -5,6 +5,18 @@ const dateInput = document.getElementById('date');
 if (dateInput) {
     dateInput.valueAsDate = new Date();
 }
+// Load entries from localStorage
+function loadEntries() {
+    const saved = localStorage.getItem('budgetEntries');
+    if (saved) {
+        entries = JSON.parse(saved);
+    }
+}
+
+// Save entries to localStorage
+function saveEntries() {
+    localStorage.setItem('budgetEntries', JSON.stringify(entries));
+}
 // Add new entry
 function addEntry(ownerName) {
     // 1. Get values safely
@@ -44,6 +56,7 @@ function addEntry(ownerName) {
 
     // 5. Add to list
     entries.unshift(newEntry);
+    saveEntries();
     
     // 6. Clear form
     descInput.value = '';
@@ -68,6 +81,7 @@ function addEntry(ownerName) {
 function deleteEntry(id) {
     entries = entries.filter(e => e.id !== id);
     localStorage.setItem('budgetEntries', JSON.stringify(entries));
+    saveEntries();
     renderExpenseChart();
     renderIncomeChart();
     renderEntries();
@@ -150,10 +164,7 @@ function getWeekNumber(date) {
 function groupByDay(entries) {
     const grouped = {};
     const today = new Date();
-    today.setHours(0, 0, 0, 0); // Reset time to midnight for accurate comparison
-
-    // 1. Generate keys for the last 14 days (Chronological order)
-    // We use a helper map to ensure we match the exact date (Year-Month-Day)
+    today.setHours(0, 0, 0, 0); 
     const validDateMap = {}; 
 
     for (let i = 13; i >= 0; i--) {
@@ -236,7 +247,6 @@ function renderDailyBars(chartElement, dailyData, chartType) {
         barsContainer.style.width = '100%';
 
         // --- PARTNER 1 BAR LOGIC ---
-        // Render if we are on Combined Page OR Partner 1 Page
         if (showBoth || isP1Page) {
             const p1Wrapper = document.createElement('div');
             p1Wrapper.style.display = 'flex';
@@ -363,15 +373,12 @@ function renderEntries() {
         
         if (isCombinedPage) {
             const isP1 = entry.owner === 'partner1';
-            const color = isP1 ? '#ec4899' : '#3b82f6'; // Pink vs Blue
+            const color = isP1 ? '#ecc848ff' : '#bb3bf6ff'; // Pink vs Blue
             const name = isP1 ? 'Partner 1' : 'Partner 2';
             const icon = isP1 ? '<i class="fa-solid fa-user-large"></i>' : '<i class="fa-solid fa-user"></i>'; // Optional icons
 
             // Add a colored left border to distinguish users
             entryStyle = `border-left: 5px solid ${color};`;
-            
-            // Add a small label
-            ownerIndicator = `<div style="font-size: 0.7em; color: ${color}; font-weight: bold; margin-bottom: 2px;">${name}</div>`;
         }
 
         return `
@@ -421,7 +428,12 @@ function updateSummary() {
     }
 }
 
+function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
 // Initialize on page load
+loadEntries();
 renderEntries();
 renderExpenseChart();
 renderIncomeChart();

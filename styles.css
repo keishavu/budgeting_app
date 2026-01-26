@@ -5,7 +5,7 @@
     }
 
 body {
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family: monospace;
     min-height: 100vh;
     padding: 20px;
     padding-top: 110px;
@@ -23,20 +23,19 @@ body {
     width: 100%;
     background: #f3f1ef;
     padding: 20px;
-    margin-bottom: 30px;
     text-align: center;
     z-index:1000;
 }
 
 .header h2 {
     color: #342002;
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size:2em;
+    font-weight: 900;
     }
 
 .header p {
     color: #473b28;
     font-size: 1.2em;
-    font-family: monospace;
     font-style: italic;
     padding-bottom:5px;
     }
@@ -88,7 +87,7 @@ body {
 .form-section h2 {
     color: #333;
     margin-bottom: 15px;
-    font-size: 1.5em;
+    font-size: 1.6em;
 }
 
 .form-grid {
@@ -157,7 +156,7 @@ body {
 .entries-section h2 {
     color: #333;
     margin-bottom: 20px;
-    font-size: 1.5em;
+    font-size: 1.6em;
 }
 
 .entry {
@@ -177,13 +176,12 @@ body {
 
 .entry-info h3 {
     color: #333;
-    font-size:0.9em;
-    margin-top: 2px;
+    font-size:1.2em;
 }
 
 .entry-info p {
     color: #666;
-    font-size: 0.7em;
+    font-size: 0.8em;
 }
 
 .entry-amount {
@@ -197,7 +195,7 @@ body {
 }
 
 .type {
-    font-size: 0.7em;
+    font-size: 0.8em;
     color: #666;
     text-transform: capitalize;
 }
@@ -242,7 +240,6 @@ body {
     left:0;
     width: 100%;
     background: #f3f1ef;
-    padding: 10px;
     text-align: center;
     z-index:1000;
 }
@@ -252,7 +249,7 @@ body {
     align-items: center;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 10px;
+    padding: 5px;
     gap: 10px;
 }
 
@@ -262,6 +259,7 @@ body {
     flex-direction: column;
     align-items: center;
     padding: 10px;
+    gap:5px;
     text-decoration: none;
     color: #333;
     background: transparent;
@@ -275,6 +273,12 @@ body {
 .nav-btn:hover, .settings-btn:hover {
     background: #e0e0e0;
     color: #667eea;
+}
+
+.nav-btn span {
+    font-size: 10px;
+    font-weight: 600;
+    color: #333;
 }
 
 /* Update .timeline-chart */
@@ -323,7 +327,6 @@ body {
 
 .chart-bar {
     flex: none;
-    border-radius: 5px 5px 0 0;
     position: relative;
     transition: all 0.3s ease;
     cursor: pointer;
@@ -335,7 +338,8 @@ body {
 }
 
 .bar-top-label {
-    font-size: 9px;
+    font-family: monospace;
+    font-size: 7px;
     color: #555;
     margin-bottom: 2px;
     font-weight: bold;
@@ -345,27 +349,21 @@ body {
 .bar-value {
     display:none;
 }
-.expense-bar {
-    background: linear-gradient(180deg, #ef4444, #f87171);
-}
 
-.expense-bar .bar-value {
-    color: #ef4444;
-}
 .partner1-bar {
-    background: linear-gradient(180deg, #ec4899, #f472b6);
+    background: #ecc848ff;
     width: 20px;
 }
 
 .partner1-bar .bar-value {
-    color: #ec4899;
+    color: #ecc848ff;
 }
 
 .partner2-bar {
-    background: linear-gradient(180deg, #3b82f6, #60a5fa);
+    background: #bb3bf6ff;
     width: 20px;
 }
 
 .partner2-bar .bar-value {
-    color: #3b82f6;
+    color: #bb3bf6ff;
 }
