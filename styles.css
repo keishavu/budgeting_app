@@ -29,13 +29,13 @@ body {
 
 .header h2 {
     color: #342002;
-    font-size:2em;
+    font-size:1.8em;
     font-weight: 900;
     }
 
 .header p {
     color: #473b28;
-    font-size: 1.2em;
+    font-size: 1em;
     font-style: italic;
     padding-bottom:5px;
     }
@@ -125,6 +125,7 @@ body {
 }
 
 .btn {
+    font-family: monospace;
     width: 100%;
     padding: 15px;
     background: #b5b5b5;
@@ -149,7 +150,7 @@ body {
     background: #ffffff;
     padding: 30px;
     border-radius: 5px;
-    margin-bottom: 65px;
+    margin-bottom: 75px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.2);
 }
 
@@ -366,4 +367,142 @@ body {
 
 .partner2-bar .bar-value {
     color: #bb3bf6ff;
+}
+
+/* Container for the settings group */
+.settings-list-group {
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    overflow: hidden; /* Ensures borders don't spill out of corners */
+    margin-bottom: 20px;
+}
+
+/* Individual row styling */
+.settings-item {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    text-decoration: none;
+    color: #333;
+    border-bottom: 1px solid #f0f0f0;
+    transition: background 0.2s ease;
+    cursor: pointer;
+}
+
+.settings-item:last-child {
+    border-bottom: none; /* Removes border from the last item */
+}
+
+.settings-item:hover {
+    background-color: #f9f9f9;
+}
+
+/* Icon on the left */
+.settings-item-icon {
+    width: 40px;
+    font-size: 1.2em;
+    color: #555;
+    display: flex;
+    justify-content: center;
+}
+
+/* Text in the middle */
+.settings-item-label {
+    flex: 1; /* Pushes the arrow to the far right */
+    font-weight: 500;
+    font-size: 1.05em;
+}
+
+/* Chevron arrow on the right */
+.settings-item-chevron {
+    color: #ccc;
+    font-size: 0.9em;
+}
+
+/* Style the button that opens the dropdown */
+.dropdown-btn {
+    font-family: monospace;
+    background-color: #ffffff;
+    color: #333;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between; /* Pushes arrow to the right */
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    transition: background-color 0.3s;
+}
+
+/* Add a hover effect */
+.dropdown-btn:hover {
+    background-color: #f1f1f1;
+}
+
+/* Style the panel that holds the settings */
+.dropdown-container {
+    padding: 0 18px;
+    background-color: #f9f9f9;
+    max-height: 0; /* Hidden height */
+    overflow: hidden; /* Hide content that spills out */
+    border-radius: 0 0 8px 8px;
+    transition: max-height 0.3s ease-out; /* Smooth slide animation */
+    margin-bottom: 10px;
+}
+
+/* Optional: Rotate the arrow when open */
+.dropdown-btn.active .arrow-icon {
+    transform: rotate(180deg);
+    transition: transform 0.3s;
+}
+
+
+/* Upgraded Color Picker Display */
+.custom-color-picker {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 10px;
+    border: 2px solid #e0e0e0;
+    border-radius: 5px;
+    background: #ffffff;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+}
+
+.custom-color-picker:hover {
+    border-color: #667eea;
+}
+
+.color-preview {
+    width: 35px;
+    height: 35px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.color-text {
+    font-family: monospace;
+    font-size: 1.1em;
+    color: #555;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+/* Force the Pickr window to the exact center of the screen */
+.pcr-app {
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    margin: 0 !important;
+    z-index: 9999 !important; /* Ensures it pops up over everything else */
 }

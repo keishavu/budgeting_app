@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>ForTwo</title>
+</head>
+<body>
+    <div class="container"></div>
+        <div class="header">
+            <p>ForTwo - Financial Transparency for Couples</p>
+            <h2>Settings</h2>
+            </div>
+        <div class="settings-list-group">
+            <button class="dropdown-btn" onclick="toggleDropdown('partnerConfigurations')">
+                <div class="settings-item-icon">
+                    <i class="fas fa-user-friends"></i>
+                </div>
+                <div class="settings-item-label">Account Configurations</div>
+                <div class="settings-item-chevron">
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+            </button>
+            <div id="partnerConfigurations" class="dropdown-container">
+                <div class="form-group">
+                    <label>Name of Partner 1</label>
+                    <input type="text" id="p1Name" value="Partner 1">
+                </div>
+                <div class="form-group">
+                    <label>Chart Color</label>
+                    <div class="custom-color-picker" onclick="document.getElementById('p1Color').click()">
+                    <div class="color-preview" id="p1ColorPreview" style="background-color: #ec4899;"></div>
+                        <span class="color-text" id="p1ColorText">#ec4899</span>
+                    </div>
+                    <input type="color" id="p1Color" value="#ec4899" style="display: none;" oninput="updateColorDisplay('p1', this.value)">
+                </div>
+                <div class="form-group">
+                    <label>Name of Partner 2</label>
+                    <input type="text" id="p2Name" value="Partner 2">
+                </div>
+                <div class="form-group">
+                <label>Chart Color</label>
+                <div class="custom-color-picker" onclick="document.getElementById('p2Color').click()">
+                    <div class="color-preview" id="p2ColorPreview" style="background-color: #3b82f6;"></div>
+                        <span class="color-text" id="p2ColorText">#3b82f6</span>
+                    </div>
+                <input type="color" id="p2Color" value="#3b82f6" style="display: none;" oninput="updateColorDisplay('p2', this.value)">
+                </div>
+                
+                <div class="form-group">
+                    <label>Icon</label>
+                    <div class="icon-grid" id="p1IconGrid"></div>
+                </div>
+            </div>
+            <button class="dropdown-btn" onclick="toggleDropdown('categoryManagement')">
+                <div class="settings-item-icon">
+                    <i class="fas fa-tags"></i>
+                </div>
+                <div class="settings-item-label">Manage Categories</div>
+                <div class="settings-item-chevron">
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+            </button>
+            <div id="categoryManagement" class="dropdown-container">
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" id="p1Name" value="Partner 1">
+            </div>
+            
+            <div class="form-group">
+                <label>Chart Color</label>
+                <div class="color-picker-wrapper">
+                    <input type="color" id="p1Color" value="#ec4899">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>Icon</label>
+                <div class="icon-grid" id="p1IconGrid"></div>
+            </div>
+        </div>
+        </div>
+    <div class="form-section" style="text-align: center; margin-top: 30px;">
+    <button class="btn" onclick="saveSettings()">Save Changes</button>
+    <p id="saveMessage" style="color: #188039; font-weight: bold; margin-top: 10px; display: none;">
+        ✓ Settings Saved Successfully!
+    </p>
+</div>
+    <div class="footer">
+        <div class="footer-container">
+            <a href="settings.html" class="nav-btn">
+                <img width="25" src="https://img.icons8.com/ios/50/settings-3--v1.png" alt="settings-3--v1"/>
+                <span>Settings</span>
+            </a>
+            <a href="partner1.html" class="nav-btn">
+                <img width="25" src="https://img.icons8.com/ios/50/user-female--v1.png" alt="user-female--v1"/>
+                <span class="p1-name-footer">Partner 1 </span>
+            </a>
+            <a href="index.html" class="nav-btn">
+                <img width="25" src="https://img.icons8.com/ios/50/novel--v1.png" alt="novel--v1"/>
+                <span>Ours</span>
+            </a>
+            <a href="partner2.html" class="nav-btn">
+                <img width="25" src="https://img.icons8.com/ios/50/brown-long-curly-hair-lady.png" alt="brown-long-curly-hair-lady"/>
+                <span class="p2-name-footer">Partner 2</span>
+            </a>
+            <button onclick="scrollToTop()" class="nav-btn">
+                <img width="25" src="https://img.icons8.com/ios/50/circled-chevron-up.png" alt="circled-chevron-up"/>
+                <span>Back to Top</span>
+            </button>
+        </div>
+    </div>
+
+    <script src="script.js" defer></script>
+</body>
+</html>

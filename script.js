@@ -428,13 +428,205 @@ function updateSummary() {
     }
 }
 
+// Open settings modal
+function openSettings() {
+    document.getElementById('settingsModal').style.display = 'block';
+    
+    // Load saved names if they exist
+    const p1Name = localStorage.getItem('partner1Name') || 'Partner 1';
+    const p2Name = localStorage.getItem('partner2Name') || 'Partner 2';
+    
+    document.getElementById('partner1Name').value = p1Name;
+    document.getElementById('partner2Name').value = p2Name;
+}
+
+// Close settings modal
+function closeSettings() {
+    document.getElementById('settingsModal').style.display = 'none';
+}
+
+// Toggle collapsible sections
+function toggleSection(sectionId) {
+    const section = document.getElementById(sectionId);
+    const arrow = document.getElementById(sectionId.replace('Section', 'Arrow'));
+    
+    section.classList.toggle('collapsed');
+    arrow.classList.toggle('rotated');
+}
+
+// Save settings
+function saveSettings() {
+    const p1Name = document.getElementById('partner1Name').value;
+    const p2Name = document.getElementById('partner2Name').value;
+    
+    localStorage.setItem('partner1Name', p1Name);
+    localStorage.setItem('partner2Name', p2Name);
+    
+    alert('Settings saved!');
+    closeSettings();
+    
+    // Optionally update header text
+    updateHeaderNames();
+}
+
+// Update header with saved names
+function updateHeaderNames() {
+    const p1Name = localStorage.getItem('partner1Name') || 'Partner 1';
+    const p2Name = localStorage.getItem('partner2Name') || 'Partner 2';
+    
+    // Update header based on which page
+    const header = document.querySelector('.header h2');
+    if (header) {
+        if (window.location.href.includes('partner1.html')) {
+            header.textContent = p1Name + "'s Budget";
+        } else if (window.location.href.includes('partner2.html')) {
+            header.textContent = p2Name + "'s Budget";
+        }
+    }
+}
+
+// Close modal when clicking outside
+window.onclick = function(event) {
+    const modal = document.getElementById('settingsModal');
+    if (event.target == modal) {
+        closeSettings();
+    }
+}
+
+// Call on page load
+updateHeaderNames();
+
 function scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
+function toggleDropdown(panelId) {
+    const panel = document.getElementById(panelId);
+    
+    // Find the button that was clicked (it's the 'previous sibling' of the panel)
+    // OR we can just pass 'this' if we change the HTML slightly. 
+    // To keep it simple, let's find the button this way:
+    const btn = panel.previousElementSibling; 
+
+    // Toggle the "active" class for arrow rotation
+    btn.classList.toggle("active");
+
+    // Toggle the panel opening/closing
+    if (panel.style.maxHeight) {
+        // If it's open, close it
+        panel.style.maxHeight = null;
+        panel.style.padding = "0 18px"; // Remove padding to make it perfectly flat
+    } else {
+        // If it's closed, open it to its full scroll height
+        panel.style.maxHeight = panel.scrollHeight + "px"; 
+        panel.style.padding = "18px"; // Restore padding
+    }
+}
+
+// Updates the visible color block and text label
+function updateColorDisplay(partnerPrefix, hexValue) {
+    document.getElementById(partnerPrefix + 'ColorPreview').style.backgroundColor = hexValue;
+    document.getElementById(partnerPrefix + 'ColorText').textContent = hexValue;
+}
+
+
+// This function applies custom names and colors globally
+function applyGlobalSettings() {
+    // 1. Pull settings from memory (or use defaults if none exist yet)
+    const settings = JSON.parse(localStorage.getItem('budgetSettings')) || {
+        p1Name: 'Partner 1', p1Color: '#ec4899',
+        p2Name: 'Partner 2', p2Color: '#3b82f6'
+    };
+
+    // 2. Apply Custom Colors to the Graphs
+    // This creates a style tag that overrides your default CSS colors
+    let customStyles = document.getElementById('dynamic-theme');
+    if (!customStyles) {
+        customStyles = document.createElement('style');
+        customStyles.id = 'dynamic-theme';
+        document.head.appendChild(customStyles);
+    }
+    customStyles.innerHTML = `
+        .partner1-bar { background: ${settings.p1Color} !important; }
+        .partner1-bar .bar-value { color: ${settings.p1Color} !important; }
+        .partner2-bar { background: ${settings.p2Color} !important; }
+        .partner2-bar .bar-value { color: ${settings.p2Color} !important; }
+    `;
+
+    // 3. Update Text across the whole app
+    // Finds every element with the special classes and updates the text
+    document.querySelectorAll('.p1-name-footer').forEach(el => el.textContent = settings.p1Name);
+    document.querySelectorAll('.p2-name-footer').forEach(el => el.textContent = settings.p2Name);
+
+    document.querySelectorAll('.p1-name-display').forEach(el => el.textContent = `${settings.p1Name}'s Budget`);
+    document.querySelectorAll('.p2-name-display').forEach(el => el.textContent = `${settings.p2Name}'s Budget`);
+
+    // 4. Update the "Who" Dropdown on the Add Entry form (if it exists on this page)
+    const ownerSelect = document.getElementById('owner');
+    if (ownerSelect) {
+        // Assuming Partner 1 is the first option, and Partner 2 is the second
+        if (ownerSelect.options[0]) ownerSelect.options[0].text = settings.p1Name;
+        if (ownerSelect.options[1]) ownerSelect.options[1].text = settings.p2Name;
+    }
+}
+// Function to load saved settings into the form when the page opens
+function loadSettingsIntoForm() {
+    const p1NameInput = document.getElementById('p1Name');
+    if (p1NameInput) {
+        const savedSettings = JSON.parse(localStorage.getItem('budgetSettings')) || {
+            p1Name: 'Partner 1', p1Color: '#ec4899', 
+            p2Name: 'Partner 2', p2Color: '#3b82f6'
+        };
+
+        document.getElementById('p1Name').value = savedSettings.p1Name;
+        document.getElementById('p1Color').value = savedSettings.p1Color;
+        document.getElementById('p2Name').value = savedSettings.p2Name;
+        document.getElementById('p2Color').value = savedSettings.p2Color;
+
+        // ADD THESE TWO LINES: Update the visual boxes when the page loads
+        updateColorDisplay('p1', savedSettings.p1Color);
+        updateColorDisplay('p2', savedSettings.p2Color);
+    }
+}
+
+// 4. Tell the browser to run this function immediately every time a page loads
+document.addEventListener('DOMContentLoaded', loadSettingsIntoForm);
+// Function to save the settings
+function saveSettings() {
+    // 1. Grab the current values from the form inputs
+    // Make sure these IDs match the inputs in your settings HTML
+    const newSettings = {
+        p1Name: document.getElementById('p1Name').value,
+        p1Color: document.getElementById('p1Color').value,
+        p2Name: document.getElementById('p2Name').value,
+        p2Color: document.getElementById('p2Color').value
+    };
+
+    // 2. Save the bundled data into LocalStorage
+    localStorage.setItem('budgetSettings', JSON.stringify(newSettings));
+
+    // 3. Immediately apply the new names and colors to the current page
+    // (This uses the function we created in the previous step!)
+    if (typeof applyGlobalSettings === 'function') {
+        applyGlobalSettings();
+    }
+
+    // 4. Show the "Settings Saved!" message for 2 seconds
+    const msg = document.getElementById('saveMessage');
+    msg.style.display = 'block';
+    
+    setTimeout(() => {
+        msg.style.display = 'none';
+    }, 2000); // 2000 milliseconds = 2 seconds
+}
+
+// Ensure this runs immediately when any page loads
+document.addEventListener('DOMContentLoaded', applyGlobalSettings);
 // Initialize on page load
 loadEntries();
 renderEntries();
 renderExpenseChart();
 renderIncomeChart();
 updateSummary();
+
+
